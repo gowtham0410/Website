@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuvexon Technologies | Defense Simulation Solutions</title>
+    <link rel="icon" type="image/png" href="Logo.png">
+
+    <style>
+        /* --- 1. RESET & VARIABLES (Dark Theme) --- */
+        :root {
+            --bg-color: #0a0b10;       /* Deep Black */
+            --nav-bg: #0a0b10;         /* Header Background */
+            --card-bg: #14161f;        /* Card Background */
+            --text-main: #ffffff;      /* White text */
+            --text-muted: #9ca3af;     /* Grey text */
+            --accent: #00d4ff;         /* Electric Blue */
+            --accent-hover: #008cb3;
+            --border: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- 2. LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-padding { padding: 100px 0; }
+
+        /* --- 3. NAVIGATION (FIXED SPACING) --- */
+        header {
+            background-color: var(--nav-bg);
+            height: 100px; 
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            /* Removed space-between, using margin-left: auto on links instead */
+        }
+
+        /* LOGO GROUP */
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
+            text-decoration: none;
+            /* SAFETY MARGIN: Ensures logo area has breathing room */
+            margin-right: 50px; 
+        }
+
+        .header-logo-img {
+            height: 60px; 
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            color: #fff;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            position: relative;
+            top: 2px; 
+        }
+
+        /* NAV LINKS */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 50px; 
+            /* THE FIX: This pushes the menu links all the way to the RIGHT */
+            margin-left: auto; 
+        }
+
+        .nav-links a {
+            font-size: 1.15rem; 
+            font-weight: 500;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            height: 100vh; 
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background-color: #000;
+            margin-top: -100px; 
+            padding-top: 100px; 
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--accent);
+            color: #000;
+            font-weight: 700;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .hero-cta:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+        }
+
+        /* --- 5. FLAGSHIP PRODUCT --- */
+        .flagship {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 50px;
+        }
+
+        .text-content {
+            max-width: 800px;
+        }
+
+        .text-content h4 {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .text-content h2 {
+            font-size: 3rem; 
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+
+        .text-content p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 1.15rem;
+        }
+
+        .feature-bullets li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+        
+        .feature-bullets li::before {
+            content: "►";
+            color: var(--accent);
+            margin-right: 15px;
+            font-size: 0.8rem;
+        }
+
+        .image-container {
+            width: 100%;
+        }
+        
+        .flagship-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8);
+        }
+
+
+        /* --- 6. GRID PRODUCTS --- */
+        .products-section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; 
+            gap: 40px; 
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+            overflow: hidden;
+            width: calc(50% - 20px); 
+            flex-grow: 0; 
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+        }
+
+        .card-img { 
+            width: 100%;
+            height: 480px; 
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 { margin-bottom: 15px; font-size: 1.8rem; }
+        .card p { color: var(--text-muted); font-size: 1.05rem; }
+
+        /* --- 7. CONTACT SECTION --- */
+        .contact-section {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+        }
+
+        .contact-box {
+            background-color: #0f111a;
+            padding: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-box h3 { margin-bottom: 20px; color: var(--accent); }
+        .info-item { margin-bottom: 20px; }
+        .info-item label { display: block; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; }
+        .info-item span, .info-item a { font-size: 1.1rem; color: #fff; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        
+        .form-input {
+            width: 100%; padding: 15px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .submit-btn:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-branding {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo-img {
+            height: 60px;
+            width: auto;
+            opacity: 0.9;
+        }
+        
+        .footer-text-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .contact-wrapper, .form-grid { grid-template-columns: 1fr; }
+            .logo-group { margin-right: auto; }
+            .card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo-group">
+                    <img src="Logo.png" alt="Nuvexon Logo" class="header-logo-img">
+                    <span class="logo-text">NUVEXON</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="#flagship" class="active">Mission Planning</a></li>
+                    <li><a href="#products">Defense Solutions</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="Main Video.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <h1>VR Defense Simulations &<br>Strategic Mission Planning</h1>
+            <p>Nuvexon Technologies Private Limited delivers high-fidelity virtual training environments for the modern battlefield.</p>
+            <a href="#flagship" class="hero-cta">View Capabilities</a>
+        </div>
+    </section>
+
+    <section id="flagship" class="flagship section-padding">
+        <div class="container">
+            <div class="split-layout">
+                <div class="text-content">
+                    <h4>First Priority Solution</h4>
+                    <h2>Mission Planning Simulator</h2>
+                    <p>A comprehensive VR command center for plotting routes, analyzing terrain, and coordinating unit movements in real-time. We bridge the gap between intelligence data and tactical execution.</p>
+                    <ul class="feature-bullets">
+                        <li>Immersive 3D Terrain Visualization</li>
+                        <li>Real-time Projector & Map Integration</li>
+                        <li>Multi-user Command & Control Interface</li>
+                        <li>Advanced "What-If" Scenario Analysis</li>
+                    </ul>
+                </div>
+                <div class="image-container">
+                    <img src="Mission Planning Simulator.png" alt="VR Mission Planning Interface" class="flagship-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Operational Simulators</h2>
+                <p>Specialized training modules for air, ground, and maintenance units.</p>
+            </div>
+
+            <div class="grid-container">
+                
+                <div class="card">
+                    <img src="Drone Simulator.png" alt="Drone Simulator Cockpit" class="card-img">
+                    <h3>Drone Simulator</h3>
+                    <p>High-fidelity flight dynamics for UAV pilots. Includes payload management and surveillance training.</p>
+                </div>
+
+                <div class="card">
+                    <img src="VR Machinery Repair.png" alt="VR Engine Repair" class="card-img">
+                    <h3>VR Machinery Repair</h3>
+                    <p>Maintenance Simulator reducing equipment downtime. Interactive, step-by-step repair guides for heavy machinery.</p>
+                </div>
+
+                <div class="card">
+                    <img src="Military Map Reading.png" alt="Augmented Reality Map" class="card-img">
+                    <h3>Military Map Reading</h3>
+                    <p>Hybrid VR + Projector solution. Teaches advanced topography by overlaying digital data on physical maps.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-box">
+                    <h3>Get in Touch</h3>
+                    <div class="info-item">
+                        <label>Representative</label>
+                        <span>Gowtham Gampala</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone</label>
+                        <a href="tel:+919491114988">+91 9491114988</a>
+                    </div>
+                    <div class="info-item">
+                        <label>Email</label>
+                        <a href="mailto:gowthamgtm234@gmail.com">gowthamgtm234@gmail.com</a>
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Inquiry Sent to Mr. Gampala');">
+                    <div class="form-grid">
+                        <input type="text" class="form-input" placeholder="Name">
+                        <input type="email" class="form-input" placeholder="Email">
+                        <textarea class="form-input full-width" rows="4" placeholder="Message"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-branding">
+                <img src="Logo.png" alt="Nuvexon Logo" class="footer-logo-img">
+                <div class="footer-text-logo">NUVEXON</div>
+            </div>
+            <p>&copy; 2025 Nuvexon Technologies Private Limited. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
