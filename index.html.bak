@@ -7,355 +7,130 @@
     <link rel="icon" type="image/png" href="Logo.png">
 
     <style>
-        /* --- 1. RESET & VARIABLES (Dark Theme) --- */
+        /* --- 1. RESET & VARIABLES --- */
         :root {
-            --bg-color: #0a0b10;       /* Deep Black */
-            --nav-bg: #0a0b10;         /* Header Background */
-            --card-bg: #14161f;        /* Card Background */
-            --text-main: #ffffff;      /* White text */
-            --text-muted: #9ca3af;     /* Grey text */
-            --accent: #00d4ff;         /* Electric Blue */
+            --bg-color: #0a0b10;
+            --nav-bg: #0a0b10;
+            --card-bg: #14161f;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --accent: #00d4ff;
             --accent-hover: #008cb3;
             --border: #2d3748;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
 
-        /* --- 2. LAYOUT UTILITIES --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
         .section-padding { padding: 100px 0; }
 
-        /* --- 3. NAVIGATION (CENTERED & BALANCED) --- */
-        header {
-            background-color: var(--nav-bg);
-            height: 100px; 
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center; /* Vertically centers everything in header */
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        /* --- 2. NAVIGATION --- */
+        header { background-color: var(--nav-bg); height: 100px; border-bottom: 1px solid var(--border); display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; align-items: center; width: 100%; }
+        .logo-group { display: flex; align-items: center; gap: 20px; margin-right: 50px; }
+        .header-logo-img { height: 60px; width: auto; }
+        .logo-text { font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 40px; margin-left: auto; }
+        .nav-links a { font-size: 1.1rem; font-weight: 500; color: var(--text-muted); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 
-        nav {
-            display: flex;
-            align-items: center; /* Vertically centers children */
-            width: 100%;
-            /* CHANGED: This pushes Logo Left and Links Right for perfect balance */
-            justify-content: space-between; 
-        }
+        /* --- 3. HERO SECTION --- */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; background-color: #000; margin-top: -100px; padding-top: 100px; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.6; }
+        .hero h1 { font-size: 3.5rem; color: #fff; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.25rem; color: #ccc; margin-bottom: 40px; max-width: 700px; margin: 0 auto 40px; }
+        .hero-cta { display: inline-block; padding: 14px 32px; background-color: var(--accent); color: #000; font-weight: 700; border-radius: 4px; }
 
-        /* LOGO GROUP */
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 20px; 
-            text-decoration: none;
-            /* Removed margin-right because we are using space-between now */
-        }
+        /* --- 4. FLAGSHIP SECTION --- */
+        .flagship { background-color: var(--card-bg); border-bottom: 1px solid var(--border); }
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .text-content h4 { color: var(--accent); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px; }
+        .text-content h2 { font-size: 3rem; margin-bottom: 25px; line-height: 1.1; }
+        .feature-bullets li { margin-bottom: 12px; display: flex; align-items: center; color: var(--text-main); font-size: 1.1rem; }
+        .feature-bullets li::before { content: "►"; color: var(--accent); margin-right: 15px; font-size: 0.8rem; }
+        .flagship-img-container { cursor: pointer; transition: 0.3s; }
+        .flagship-img-container:hover { transform: scale(1.02); }
+        .flagship-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8); }
 
-        .header-logo-img {
-            height: 60px; 
-            width: auto;
-        }
-
-        .logo-text {
-            font-size: 2.2rem; 
-            font-weight: 800; 
-            color: #fff;
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-            /* Fix for visual alignment with icon */
-            position: relative;
-            top: 2px; 
-        }
-
-        /* NAV LINKS */
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 50px; 
-        }
-
-        .nav-links a {
-            font-size: 1.15rem; 
-            font-weight: 500;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--accent);
-        }
-
-        /* --- 4. HERO SECTION --- */
-        .hero {
-            height: 100vh; 
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            background-color: #000;
-            margin-top: -100px; 
-            padding-top: 100px; 
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            opacity: 0.6;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            color: #fff;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            color: #ccc;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            padding: 14px 32px;
-            background-color: var(--accent);
-            color: #000;
-            font-weight: 700;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        .hero-cta:hover {
-            background-color: var(--accent-hover);
-            color: #fff;
-        }
-
-        /* --- 5. FLAGSHIP PRODUCT --- */
-        .flagship {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .split-layout {
-            display: grid;
-            grid-template-columns: 1fr; 
-            gap: 50px;
-        }
-
-        .text-content {
-            max-width: 800px;
-        }
-
-        .text-content h4 {
-            color: var(--accent);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .text-content h2 {
-            font-size: 3rem; 
-            margin-bottom: 25px;
-            line-height: 1.1;
-        }
-
-        .text-content p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-size: 1.15rem;
-        }
-
-        .feature-bullets li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            color: var(--text-main);
-            font-size: 1.1rem;
-        }
-        
-        .feature-bullets li::before {
-            content: "►";
-            color: var(--accent);
-            margin-right: 15px;
-            font-size: 0.8rem;
-        }
-
-        .image-container {
-            width: 100%;
-        }
-        
-        .flagship-img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8);
-        }
-
-
-        /* --- 6. GRID PRODUCTS --- */
+        /* --- 5. GRID PRODUCTS --- */
         .products-section { padding: 100px 0; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 10px; }
-        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+        .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 4px; border: 1px solid var(--border); transition: 0.3s; width: calc(33.33% - 30px); cursor: pointer; }
+        .card:hover { border-color: var(--accent); transform: translateY(-8px); }
+        .card-img { width: 100%; height: 280px; object-fit: cover; border-radius: 4px; margin-bottom: 20px; border: 1px solid var(--border); }
+        .card h3 { margin-bottom: 10px; font-size: 1.5rem; color: var(--accent); }
 
-        .grid-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; 
-            gap: 40px; 
+        /* --- 6. OVERLAYS (SUB-PAGE & LIGHTBOX) --- */
+        #subPageOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 2000; display: none; overflow-y: auto; padding: 50px 0; }
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; display: none; justify-content: center; align-items: center; }
+        .close-btn { position: fixed; top: 30px; right: 50px; font-size: 3.5rem; color: var(--accent); cursor: pointer; z-index: 2101; line-height: 1; }
+        
+        .sub-page-description { 
+            font-size: 1.15rem; color: var(--text-muted); margin-bottom: 50px; 
+            max-width: 1000px; border-left: 3px solid var(--accent); 
+            padding-left: 25px; line-height: 1.8; text-align: justify;
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            transition: 0.3s;
-            overflow: hidden;
-            width: calc(50% - 20px); 
-            flex-grow: 0; 
-        }
-
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-8px);
-        }
-
-        .card-img { 
-            width: 100%;
-            height: 480px; 
-            object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border);
-        }
-
-        .card h3 { margin-bottom: 15px; font-size: 1.8rem; }
-        .card p { color: var(--text-muted); font-size: 1.05rem; }
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .media-item { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #000; transition: 0.3s; }
+        .media-item:hover { border-color: var(--accent); }
+        .media-item img { width: 100%; height: 220px; object-fit: cover; cursor: pointer; }
+        .media-item video { width: 100%; height: 220px; object-fit: cover; display: block; }
+        
+        #lightbox img { max-width: 85%; max-height: 80%; border: 2px solid var(--border); border-radius: 4px; }
+        .lb-close { position: absolute; top: 30px; right: 40px; font-size: 3rem; color: #fff; cursor: pointer; }
+        .lb-arrow { font-size: 4rem; color: var(--accent); cursor: pointer; user-select: none; position: absolute; top: 50%; transform: translateY(-50%); transition: 0.3s; }
+        .lb-arrow:hover { color: #fff; }
+        .lb-left { left: 30px; }
+        .lb-right { right: 30px; }
 
         /* --- 7. CONTACT SECTION --- */
-        .contact-section {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border);
-        }
-
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 60px;
-        }
-
-        .contact-box {
-            background-color: #0f111a;
-            padding: 30px;
-            border: 1px solid var(--border);
-        }
-
-        .contact-box h3 { margin-bottom: 20px; color: var(--accent); }
-        .info-item { margin-bottom: 20px; }
-        .info-item label { display: block; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; }
-        .info-item span, .info-item a { font-size: 1.1rem; color: #fff; }
-
+        .contact-section { background-color: var(--card-bg); border-top: 1px solid var(--border); }
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; }
+        .contact-info-panel { background-color: #0f111a; padding: 40px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 35px; }
+        .contact-info-panel h3 { color: var(--accent); font-size: 1.5rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .info-block { display: flex; flex-direction: column; gap: 8px; }
+        .info-label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .info-value { color: #fff; font-size: 1.2rem; font-weight: 500; }
+        .info-link { color: #fff; font-size: 1.2rem; transition: 0.3s; border-bottom: 1px solid transparent; width: fit-content; }
+        .info-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .full-width { grid-column: span 2; }
-        
-        .form-input {
-            width: 100%; padding: 15px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border);
-            color: #fff;
-            border-radius: 4px;
-        }
+        .form-input { width: 100%; padding: 18px; background-color: var(--bg-color); border: 1px solid var(--border); color: #fff; border-radius: 4px; font-size: 1rem; }
+        .submit-btn { margin-top: 20px; padding: 15px 40px; background-color: var(--accent); border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
+        .submit-btn:hover { background-color: var(--accent-hover); color: #fff; transform: translateY(-2px); }
 
-        .submit-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
-            background-color: var(--accent);
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .submit-btn:hover {
-            background-color: var(--accent-hover);
-            color: #fff;
-        }
+        footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 50px 0;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .footer-branding {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo-img {
-            height: 60px;
-            width: auto;
-            opacity: 0.9;
-        }
-        
-        .footer-text-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #fff;
-            text-transform: uppercase;
-        }
-
-        /* Mobile */
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
+            .split-layout, .contact-wrapper { grid-template-columns: 1fr; }
+            .card { width: calc(50% - 20px); }
             .nav-links { display: none; }
-            .contact-wrapper, .form-grid { grid-template-columns: 1fr; }
-            .logo-group { margin-right: auto; }
-            .card { width: 100%; }
         }
     </style>
 </head>
 <body>
+
+    <div id="lightbox">
+        <span class="lb-close" onclick="closeLightbox()">&times;</span>
+        <span class="lb-arrow lb-left" onclick="changeImage(-1)">&#10094;</span>
+        <span class="lb-arrow lb-right" onclick="changeImage(1)">&#10095;</span>
+        <img id="lightboxImg" src="">
+    </div>
+
+    <div id="subPageOverlay">
+        <span class="close-btn" onclick="closeSubPage()">&times;</span>
+        <div class="container">
+            <h2 id="subTitle" style="font-size: 3rem; margin-bottom: 25px; color: var(--accent);">Module Title</h2>
+            <div id="subDescription" class="sub-page-description">Description text...</div>
+            <h3 style="color: #fff; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px;">Project Media</h3>
+            <div id="mediaGrid" class="media-grid"></div>
+        </div>
+    </div>
 
     <header>
         <div class="container">
@@ -364,9 +139,8 @@
                     <img src="Logo.png" alt="Nuvexon Logo" class="header-logo-img">
                     <span class="logo-text">NUVEXON</span>
                 </a>
-
                 <ul class="nav-links">
-                    <li><a href="#flagship" class="active">Mission Planning</a></li>
+                    <li><a href="#flagship">Mission Planning</a></li>
                     <li><a href="#products">Defense Solutions</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -391,16 +165,17 @@
                 <div class="text-content">
                     <h4>First Priority Solution</h4>
                     <h2>Mission Planning Simulator</h2>
-                    <p>A comprehensive VR command center for plotting routes, analyzing terrain, and coordinating unit movements in real-time. We bridge the gap between intelligence data and tactical execution.</p>
+                    <p>Advanced system for realistic mission planning, rehearsal, and tactical decision-making in near real-world operational environments.</p>
                     <ul class="feature-bullets">
-                        <li>Immersive 3D Terrain Visualization</li>
-                        <li>Real-time Projector & Map Integration</li>
-                        <li>Multi-user Command & Control Interface</li>
-                        <li>Advanced "What-If" Scenario Analysis</li>
+                        <li>Near Real-world Operational Environments</li>
+                        <li>Immersive 3D & VR Interaction</li>
+                        <li>Multi-user Strategic Collaboration</li>
+                        <li>Reduced Operational Risk</li>
                     </ul>
                 </div>
-                <div class="image-container">
-                    <img src="Mission Planning Simulator.png" alt="VR Mission Planning Interface" class="flagship-img">
+                <div class="flagship-img-container" onclick="openSubPage('Mission Planning Simulator', 5)">
+                    <img src="Mission Planning Simulator/1.png" alt="Mission Planning Simulator" class="flagship-img">
+                    <div style="margin-top:15px; color: var(--accent); font-weight: bold; text-align: center;">Explore Project Details →</div>
                 </div>
             </div>
         </div>
@@ -412,27 +187,22 @@
                 <h2>Operational Simulators</h2>
                 <p>Specialized training modules for air, ground, and maintenance units.</p>
             </div>
-
             <div class="grid-container">
-                
-                <div class="card">
-                    <img src="Drone Simulator.png" alt="Drone Simulator Cockpit" class="card-img">
+                <div class="card" onclick="openSubPage('Drone Simulator', 13)">
+                    <img src="Drone Simulator/1.png" alt="Drone Simulator" class="card-img">
                     <h3>Drone Simulator</h3>
-                    <p>High-fidelity flight dynamics for UAV pilots. Includes payload management and surveillance training.</p>
+                    <p>VR-enabled training platform for realistic drone operation and mission readiness.</p>
                 </div>
-
-                <div class="card">
-                    <img src="VR Machinery Repair.png" alt="VR Engine Repair" class="card-img">
+                <div class="card" onclick="openSubPage('VR Machinery Repair', 6)">
+                    <img src="VR Machinery Repair/1.png" alt="VR Machinery Repair" class="card-img">
                     <h3>VR Machinery Repair</h3>
-                    <p>Maintenance Simulator reducing equipment downtime. Interactive, step-by-step repair guides for heavy machinery.</p>
+                    <p>Virtual maintenance training for complex machinery and mechanical systems.</p>
                 </div>
-
-                <div class="card">
-                    <img src="Military Map Reading.png" alt="Augmented Reality Map" class="card-img">
+                <div class="card" onclick="openSubPage('Military Map Reading', 4)">
+                    <img src="Military Map Reading/1.png" alt="Map Reading Simulator" class="card-img">
                     <h3>Military Map Reading</h3>
-                    <p>Hybrid VR + Projector solution. Teaches advanced topography by overlaying digital data on physical maps.</p>
+                    <p>Practical learning for grid references, navigation, and terrain interpretation.</p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -440,30 +210,21 @@
     <section id="contact" class="contact-section section-padding">
         <div class="container">
             <div class="section-header">
-                <h2>Contact Us</h2>
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Connect With Us</h2>
+                <p>Reach out for technical inquiries or project collaborations.</p>
             </div>
             <div class="contact-wrapper">
-                <div class="contact-box">
-                    <h3>Get in Touch</h3>
-                    <div class="info-item">
-                        <label>Representative</label>
-                        <span>Gowtham Gampala</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Phone</label>
-                        <a href="tel:+919491114988">+91 9491114988</a>
-                    </div>
-                    <div class="info-item">
-                        <label>Email</label>
-                        <a href="mailto:gowthamgtm234@gmail.com">gowthamgtm234@gmail.com</a>
-                    </div>
+                <div class="contact-info-panel">
+                    <h3>Official Inquiry</h3>
+                    <div class="info-block"><span class="info-label">Representative</span><span class="info-value">Gowtham Gampala</span></div>
+                    <div class="info-block"><span class="info-label">Direct Phone</span><a href="tel:+919491114988" class="info-link">+91 9491114988</a></div>
+                    <div class="info-block"><span class="info-label">Official Email</span><a href="mailto:gowthamgtm234@gmail.com" class="info-link">gowthamgtm234@gmail.com</a></div>
                 </div>
-
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Inquiry Sent to Mr. Gampala');">
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Inquiry sent successfully!');">
                     <div class="form-grid">
-                        <input type="text" class="form-input" placeholder="Name">
-                        <input type="email" class="form-input" placeholder="Email">
-                        <textarea class="form-input full-width" rows="4" placeholder="Message"></textarea>
+                        <input type="text" class="form-input" placeholder="Your Name" required>
+                        <input type="email" class="form-input" placeholder="Your Email" required>
+                        <textarea class="form-input" rows="5" placeholder="Your Message" style="grid-column: span 2;" required></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
@@ -472,14 +233,85 @@
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-branding">
-                <img src="Logo.png" alt="Nuvexon Logo" class="footer-logo-img">
-                <div class="footer-text-logo">NUVEXON</div>
-            </div>
-            <p>&copy; 2025 Nuvexon Technologies Private Limited. All Rights Reserved.</p>
-        </div>
+        <div class="container"><p>&copy; 2025 Nuvexon Technologies Private Limited. All Rights Reserved.</p></div>
     </footer>
 
+    <script>
+        const descriptions = {
+            "Mission Planning Simulator": "Mission Planning Simulator is an advanced simulation system developed to support realistic mission planning, rehearsal, and tactical decision-making. The platform recreates near real-world operational environments by combining accurate terrain representation with interactive planning and simulation tools. Users can analyze terrain, plan movements, assign tasks, and execute missions within a controlled virtual environment prior to real-world operations.\n\nThe simulator supports both 2D map-based planning and immersive 3D and Virtual Reality interaction, allowing users to visualize operational areas from multiple perspectives. Multi-user collaboration enables coordinated planning and shared situational awareness. By allowing missions to be rehearsed, modified, and reviewed virtually, the system improves preparedness, reduces operational risk, and enhances decision-making quality.",
+            "Drone Simulator": "Drone Simulator is a Virtual Reality–enabled training and simulation platform designed for realistic drone operation and mission practice. The system allows users to control drone movement and onboard cameras in real time using immersive VR interfaces, providing a first-person operational view similar to live drone deployment.\n\nThe platform captures and processes geospatial data, converts location information into grid-based references, and records flight paths and mission data for review and analysis. By offering a safe, repeatable, and cost-effective training environment, Drone Simulator enhances operator proficiency, situational awareness, and mission readiness.",
+            "Military Map Reading": "Map Reading Simulator is an interactive training application created to develop essential navigation and map-reading skills through practical, exercise-driven learning. The simulator trains users in grid references, bearings, distance estimation, contour interpretation, and direction finding using both natural and man-made indicators.\n\nTraining is delivered through a combination of 2D maps and corresponding 3D terrain, helping users clearly understand spatial relationships between maps and ground features. User progress is tracked, and instructor observation tools support effective training evaluation and supervision.",
+            "VR Machinery Repair": "VR Machinery Repair is a Virtual Reality–based training application designed to support maintenance and repair learning for complex machinery and mechanical systems. The platform provides immersive 3D environments where users can explore components, understand assembly structures, and practice maintenance procedures in a safe virtual setting.\n\nBy enabling hands-on learning without physical equipment, the system helps improve technical understanding, procedural accuracy, and maintenance readiness through realistic virtual interaction."
+        };
+
+        let currentImgIndex = 1;
+        let totalImgs = 0;
+        let currentFolderName = "";
+
+        function openSubPage(title, count) {
+            currentFolderName = title;
+            totalImgs = count;
+            document.getElementById('subTitle').innerText = title;
+            const formattedDesc = descriptions[title].replace(/\n/g, '<br>');
+            document.getElementById('subDescription').innerHTML = formattedDesc;
+
+            const grid = document.getElementById('mediaGrid');
+            grid.innerHTML = '';
+
+            // --- ADD VIDEO FOR SPECIFIC MODULES ---
+            if (title === "Mission Planning Simulator" || title === "Drone Simulator") {
+                grid.innerHTML += `
+                    <div class="media-item">
+                        <video controls poster="${title}/1.png">
+                            <source src="${title}/primary video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>`;
+            }
+
+            // --- ADD IMAGES ---
+            for (let i = 1; i <= count; i++) {
+                grid.innerHTML += `
+                    <div class="media-item">
+                        <img src="${title}/${i}.png" onclick="openLightbox(${i})" onerror="this.parentElement.style.display='none'">
+                    </div>`;
+            }
+
+            document.getElementById('subPageOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSubPage() {
+            document.getElementById('subPageOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Stop all playing videos inside the grid when closing
+            const videos = document.querySelectorAll('#mediaGrid video');
+            videos.forEach(v => v.pause());
+        }
+
+        function openLightbox(index) {
+            currentImgIndex = index;
+            document.getElementById('lightboxImg').src = `${currentFolderName}/${currentImgIndex}.png`;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+
+        function changeImage(dir) {
+            currentImgIndex += dir;
+            if (currentImgIndex > totalImgs) currentImgIndex = 1;
+            if (currentImgIndex < 1) currentImgIndex = totalImgs;
+            document.getElementById('lightboxImg').src = `${currentFolderName}/${currentImgIndex}.png`;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').style.display === 'flex') {
+                if (e.key === "ArrowRight") changeImage(1);
+                if (e.key === "ArrowLeft") changeImage(-1);
+                if (e.key === "Escape") closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
